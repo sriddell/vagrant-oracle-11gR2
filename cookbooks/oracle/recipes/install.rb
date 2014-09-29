@@ -4,16 +4,14 @@ directory "/home/oracle/oracle" do
   recursive true
 end
 
-cookbook_file "linux.x64_11gR2_database_1of2.zip" do 
-  path "/home/oracle/oracle/linux.x64_11gR2_database_1of2.zip"
+remote_directory "/home/oracle/oracle" do
+  files_owner 'oracle'
+  owner 'oracle'
+  source "oracle"
 end
 
-cookbook_file "linux.x64_11gR2_database_2of2.zip" do 
-  path "/home/oracle/oracle/linux.x64_11gR2_database_2of2.zip"
-end
-
-execute "unzip1" do 
-  command "unzip linux.x64_11gR2_database_1of2.zip && unzip linux.x64_11gR2_database_2of2.zip"
+execute "unzip1" do
+  command "unzip \\*.zip"
   user "oracle"
   cwd "/home/oracle/oracle"
 end
@@ -25,7 +23,7 @@ template "/etc/oraInst.loc" do
   source "oraInst.loc.erb"
 end
 
-template "/home/oracle/db.rsp" do 
+template "/home/oracle/db.rsp" do
   owner "oracle"
   group "dba"
   source "db.rsp.erb"
@@ -44,13 +42,13 @@ directory "/u01/app/oracle" do
 end
 
 #need to wrap this to get it to run in a login shell like environment
-execute "install" do 
+execute "install" do
   command "su -l -c 'cd /home/oracle/oracle/database && ./runInstaller -ignoreSysPrereqs -silent -noconfig -responseFile /home/oracle/db.rsp -waitforcompletion' oracle"
   user "root"
-  returns [0, 253]
+  returns [0, 6]
 end
 
-execute "root.sh" do 
+execute "root.sh" do
   command "/u01/app/oracle/product/11.2.0/dbhome_1/root.sh"
   user "root"
 end

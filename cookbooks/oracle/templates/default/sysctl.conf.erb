@@ -34,8 +34,10 @@ kernel.shmmax = 68719476736
 # Controls the maximum number of shared memory segments, in pages
 kernel.shmall = 4294967296
 
+kernel.shmmni = 4096
+
 #This sets SEMMSL, SEMMNS, SEMOPM, SEMMNI
-kernel.sem = 250 32000 100 128 
+kernel.sem = 250 32000 100 128
 net.ipv4.ip_local_port_range = 9000 65500
 
 net.core.rmem_default = 4194304

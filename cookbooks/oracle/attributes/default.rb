@@ -27,7 +27,8 @@ default["oracle"]["db_packages"] = [
   "openmotif-devel",
   "make",
   "numactl-devel",
-  "sysstat"
+  "sysstat",
+  "mksh"
 ]
 
 default["limits"] = [
