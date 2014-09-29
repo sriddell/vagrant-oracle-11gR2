@@ -1,7 +1,7 @@
-execute "Desktop" do 
-    command 'yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"'
-    user "root"
-end
+#execute "Desktop" do 
+#    command 'yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"'
+#    user "root"
+#end
 
 node["oracle"]["db_packages"].each do |db_package|
   package db_package
@@ -90,3 +90,19 @@ template "/etc/security/limits.conf" do
 end
 
 include_recipe "oracle::install"
+
+template "/root/zerofree.sh" do
+  owner "root"
+  group "root"
+  mode "0755"
+  source "zerofree.sh.erb"
+end
+
+execute "zerofree" do
+  command "./zerofree.sh"
+  cwd "/root"
+  user "root"
+end
+
+
+

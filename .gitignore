@@ -1,4 +1,5 @@
 *.zip
+*.box
 .kitchen
 # Vagrant stuff
 boxes/*

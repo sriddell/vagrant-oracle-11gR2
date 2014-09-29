@@ -57,4 +57,5 @@ end
 
 directory "/home/oracle/oracle" do
   action :delete
+  recursive true
 end
